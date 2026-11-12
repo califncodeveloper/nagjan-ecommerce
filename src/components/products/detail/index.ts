@@ -1,0 +1,12 @@
+export { MachineryBreadcrumb } from "./MachineryBreadcrumb";
+export { MachineryImageGallery } from "./MachineryImageGallery";
+export { MachineryDetailHero } from "./MachineryDetailHero";
+export { MachineryTechnicalHighlights } from "./MachineryTechnicalHighlights";
+export { MachineryOverview } from "./MachineryOverview";
+export { MachineryTechnicalSpecs } from "./MachineryTechnicalSpecs";
+export { MachineryFeatures } from "./MachineryFeatures";
+export { MachineryApplications } from "./MachineryApplications";
+export { MachineryComponents } from "./MachineryComponents";
+export { MachineryConfiguration } from "./MachineryConfiguration";
+export { MachineryRelatedProducts } from "./MachineryRelatedProducts";
+export { MachineryQuoteCTA } from "./MachineryQuoteCTA";
