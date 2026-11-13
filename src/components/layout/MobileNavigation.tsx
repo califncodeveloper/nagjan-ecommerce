@@ -129,7 +129,7 @@ export function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
         </div>
 
         {/* Scrollable Navigation Body */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+        <div data-lenis-prevent className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
           {/* Quick Primary Links */}
           <nav aria-label="Mobile Menu Links" className="space-y-1">
             <Link

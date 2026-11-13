@@ -1,303 +1,304 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin, Wrench, ShieldCheck, ArrowRight } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Wrench,
+  ShieldCheck,
+  ArrowRight,
+  Sparkles,
+  Cpu,
+  Clock,
+  Layers,
+  CheckCircle2,
+} from "lucide-react";
 import { Container } from "./Container";
 import { COMPANY_CONTACT } from "@/data/navigation";
 
 export function Footer() {
   return (
-    <footer className="bg-[#01255a] text-slate-200 border-t-4 border-[#FEA81D] mt-auto">
+    <footer className="relative bg-[#010f29] text-slate-300 border-t-4 border-[#FEA81D] mt-auto overflow-hidden">
+      {/* Ambient Top Glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-36 bg-gradient-to-r from-transparent via-[#013074]/50 to-transparent blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Decorative Grid Texture */}
+      <div
+        className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
+        aria-hidden="true"
+      />
+
       {/* Main 4-Column Grid */}
-      <Container size="default" className="py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+      <Container size="default" className="relative py-14 sm:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
           {/* Column 1 (4 cols): Company Profile & Verified Facilities */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-4 space-y-6">
             <Link
               href="/"
-              className="inline-block bg-white p-2.5 rounded-md shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FEA81D]"
+              className="inline-flex items-center bg-white px-3.5 py-2 rounded-lg shadow-md hover:shadow-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FEA81D]"
               title="NAGJAN - Mount Kailash Printpack Machines"
               aria-label="NAGJAN Home"
             >
-              <div className="relative flex items-center" style={{ width: 140, height: 45 }}>
+              <div className="relative flex items-center" style={{ width: 145, height: 44 }}>
                 <Image
                   src="/logo/nagjan-logo.png"
                   alt="NAGJAN Logo"
-                  width={140}
-                  height={45}
+                  width={145}
+                  height={44}
                   className="w-auto h-10 object-contain"
                 />
               </div>
             </Link>
 
-            <div className="space-y-2">
-              <h3 className="text-white font-bold text-sm tracking-tight font-heading">
-                {COMPANY_CONTACT.legalName}
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Established in May 2010 in Chennai, specializing in the import, engineering customization, and pan-India supply of high-speed corrugated packaging lines and Semi-Indian machine retrofits with Siemens and ABB automation.
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FEA81D]" />
+                <h3 className="text-white font-extrabold text-sm tracking-tight font-heading uppercase">
+                  {COMPANY_CONTACT.legalName}
+                </h3>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                Founded May 2010 in Chennai. Specializing in high-speed corrugated packaging production lines, Semi-Indian retrofits with Siemens/ABB drives, and 400+ genuine spare parts ready for same-day dispatch pan-India.
               </p>
             </div>
 
-            <div className="pt-2 border-t border-blue-900/60 space-y-2.5 text-xs text-slate-300">
-              <div className="flex items-start gap-2">
-                <MapPin className="size-4 text-[#FEA81D] shrink-0 mt-0.5" />
+            {/* Verified Chennai Locations */}
+            <div className="pt-4 border-t border-white/10 space-y-3.5 text-xs text-slate-300">
+              <div className="flex items-start gap-2.5 group">
+                <div className="size-6 rounded-md bg-[#013074] border border-[#FEA81D]/40 flex items-center justify-center shrink-0 mt-0.5 group-hover:border-[#FEA81D] transition-colors">
+                  <MapPin className="size-3.5 text-[#FEA81D]" />
+                </div>
                 <div>
                   <span className="font-semibold text-white block">
                     Registered Corporate Office:
                   </span>
-                  <span>{COMPANY_CONTACT.addresses.registeredOffice.address}</span>
+                  <span className="text-slate-300 text-[11px] leading-relaxed block">
+                    {COMPANY_CONTACT.addresses.registeredOffice.address}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2">
-                <MapPin className="size-4 text-[#FEA81D] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2.5 group">
+                <div className="size-6 rounded-md bg-[#013074] border border-[#FEA81D]/40 flex items-center justify-center shrink-0 mt-0.5 group-hover:border-[#FEA81D] transition-colors">
+                  <Wrench className="size-3.5 text-[#FEA81D]" />
+                </div>
                 <div>
                   <span className="font-semibold text-white block">
                     Assembly Godown & Spares Depot:
                   </span>
-                  <span>{COMPANY_CONTACT.addresses.godownDepot.address}</span>
+                  <span className="text-slate-300 text-[11px] leading-relaxed block">
+                    {COMPANY_CONTACT.addresses.godownDepot.address}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Column 2 (2 cols): Quick Navigation Links */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-white font-bold text-xs uppercase tracking-wider font-heading border-b border-blue-900/80 pb-2">
-              Quick Links
-            </h4>
+          <div className="lg:col-span-2 space-y-5">
+            <div>
+              <h4 className="text-white font-bold text-xs uppercase tracking-wider font-heading">
+                Quick Navigation
+              </h4>
+              <div className="h-0.5 w-10 bg-[#FEA81D] mt-2 rounded-full" />
+            </div>
 
-            <ul className="space-y-2 text-xs">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-[#FEA81D] transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="size-3 text-slate-400" />
-                  <span>Home</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-[#FEA81D] transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="size-3 text-slate-400" />
-                  <span>About Us</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products"
-                  className="hover:text-[#FEA81D] transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="size-3 text-slate-400" />
-                  <span>Machinery Lines</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/spare-parts"
-                  className="hover:text-[#FEA81D] transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="size-3 text-slate-400" />
-                  <span>Spare Parts Store</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories"
-                  className="hover:text-[#FEA81D] transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="size-3 text-slate-400" />
-                  <span>Categories Directory</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-[#FEA81D] transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="size-3 text-slate-400" />
-                  <span>Services & Support</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-[#FEA81D] transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="size-3 text-slate-400" />
-                  <span>Contact Us</span>
-                </Link>
-              </li>
-              <li className="pt-2">
+            <ul className="space-y-2.5 text-xs">
+              {[
+                { name: "Home", href: "/" },
+                { name: "About Us", href: "/about" },
+                { name: "Machinery Lines", href: "/products" },
+                { name: "Spare Parts Catalog", href: "/spare-parts" },
+                { name: "Machinery Categories", href: "/categories" },
+                { name: "Engineering Services", href: "/services" },
+                { name: "Contact & Godown", href: "/contact" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="hover:text-[#FEA81D] transition-colors flex items-center gap-2 group"
+                  >
+                    <ArrowRight className="size-3 text-slate-500 group-hover:text-[#FEA81D] group-hover:translate-x-0.5 transition-all" />
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+              <li className="pt-3">
                 <Link
                   href="/request-quote"
-                  className="inline-flex items-center gap-1 text-[#FEA81D] font-semibold hover:underline"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#FEA81D] hover:bg-[#e59617] text-[#0F172A] font-bold text-xs shadow-sm transition-all"
                 >
-                  <span>Request a Quote →</span>
+                  <Sparkles className="size-3" />
+                  <span>Request RFQ Quote</span>
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Column 3 (3 cols): Machinery Lines */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-white font-bold text-xs uppercase tracking-wider font-heading border-b border-blue-900/80 pb-2">
-              Machinery Lines
-            </h4>
+          <div className="lg:col-span-3 space-y-5">
+            <div>
+              <h4 className="text-white font-bold text-xs uppercase tracking-wider font-heading">
+                Core Machinery Lines
+              </h4>
+              <div className="h-0.5 w-10 bg-[#FEA81D] mt-2 rounded-full" />
+            </div>
 
-            <ul className="space-y-2 text-xs text-slate-300">
+            <ul className="space-y-3 text-xs text-slate-300">
               <li>
                 <Link
-                  href="/products"
-                  className="hover:text-[#FEA81D] transition-colors block"
+                  href="/products/wj-100-1800-2ply-plant"
+                  className="hover:text-[#FEA81D] transition-colors block group"
                 >
-                  <span className="font-semibold text-white">WJ-100-1800 2PLY Plant</span>
-                  <span className="text-[11px] text-slate-400 block">Complete 1800mm Corrugation Line</span>
+                  <span className="font-semibold text-white group-hover:text-[#FEA81D] transition-colors">
+                    WJ-100-1800 2PLY Plant
+                  </span>
+                  <span className="text-[11px] text-slate-400 block">
+                    Complete 1800mm High-Speed Corrugation Line
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/products"
-                  className="hover:text-[#FEA81D] transition-colors block"
+                  href="/products/sf-280-single-facer"
+                  className="hover:text-[#FEA81D] transition-colors block group"
                 >
-                  <span className="font-semibold text-white">SF-280 Single Facer</span>
-                  <span className="text-[11px] text-slate-400 block">ABB Inverter & Φ280mm 48CrMo Roll</span>
+                  <span className="font-semibold text-white group-hover:text-[#FEA81D] transition-colors">
+                    SF-280 Single Facer
+                  </span>
+                  <span className="text-[11px] text-slate-400 block">
+                    ABB Inverter • Φ280mm 48CrMo Laser Corrugating Roll
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/products"
-                  className="hover:text-[#FEA81D] transition-colors block"
+                  href="/products/sf-10-fingerless-single-facer"
+                  className="hover:text-[#FEA81D] transition-colors block group"
                 >
-                  <span className="font-semibold text-white">SF-10 Single Facer</span>
-                  <span className="text-[11px] text-slate-400 block">Φ292mm Tungsten Carbide Roller</span>
+                  <span className="font-semibold text-white group-hover:text-[#FEA81D] transition-colors">
+                    SF-10 Fingerless Single Facer
+                  </span>
+                  <span className="text-[11px] text-slate-400 block">
+                    Φ292mm Tungsten Carbide Roller • Negative Pressure Suction
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/products"
-                  className="hover:text-[#FEA81D] transition-colors block"
+                  href="/products/hydraulic-mill-roll-stand-2-ton"
+                  className="hover:text-[#FEA81D] transition-colors block group"
                 >
-                  <span className="font-semibold text-white">Hydraulic Mill Roll Stands</span>
-                  <span className="text-[11px] text-slate-400 block">2-Ton (1400/1600mm) & 3-Ton ZJ-V5B</span>
+                  <span className="font-semibold text-white group-hover:text-[#FEA81D] transition-colors">
+                    Hydraulic Mill Roll Stands
+                  </span>
+                  <span className="text-[11px] text-slate-400 block">
+                    2-Ton & 3-Ton ZJ-V5B Dual-Arm Heavy Duty
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/products"
-                  className="hover:text-[#FEA81D] transition-colors block"
+                  href="/products/nc-1800-computer-rotary-cutter"
+                  className="hover:text-[#FEA81D] transition-colors block group"
                 >
-                  <span className="font-semibold text-white">NC-1800 Computer Rotary Cutter</span>
-                  <span className="text-[11px] text-slate-400 block">Servo Driven • 200 Order Memory</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products"
-                  className="hover:text-[#FEA81D] transition-colors block"
-                >
-                  <span className="font-semibold text-white">Converting & Box Stitchers</span>
-                  <span className="text-[11px] text-slate-400 block">Flexo Printer Slotters & Servo Stitchers</span>
+                  <span className="font-semibold text-white group-hover:text-[#FEA81D] transition-colors">
+                    NC-1800 Rotary Sheet Cutter
+                  </span>
+                  <span className="text-[11px] text-slate-400 block">
+                    Servo Helical Cutter • 200 Order Production Memory
+                  </span>
                 </Link>
               </li>
               <li className="pt-1">
                 <Link
                   href="/products"
-                  className="text-xs text-[#FEA81D] hover:underline font-semibold flex items-center gap-1"
+                  className="text-xs text-[#FEA81D] hover:underline font-semibold flex items-center gap-1.5 group"
                 >
-                  <span>View All 20+ Machinery Lines</span>
-                  <ArrowRight className="size-3" />
+                  <span>Explore Full 20+ Machinery Catalog</span>
+                  <ArrowRight className="size-3 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Column 4 (3 cols): Spare Parts & Support Hotlines */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-white font-bold text-xs uppercase tracking-wider font-heading border-b border-blue-900/80 pb-2">
-              Spare Parts & Hotline
-            </h4>
+          <div className="lg:col-span-3 space-y-5">
+            <div>
+              <h4 className="text-white font-bold text-xs uppercase tracking-wider font-heading">
+                Depot Spares & Hotlines
+              </h4>
+              <div className="h-0.5 w-10 bg-[#FEA81D] mt-2 rounded-full" />
+            </div>
 
             <ul className="space-y-1.5 text-xs text-slate-300">
-              <li>
-                <Link href="/spare-parts" className="hover:text-[#FEA81D] transition-colors">
-                  • Anvil Covers (MaxDura Knuckle Type)
-                </Link>
-              </li>
-              <li>
-                <Link href="/spare-parts" className="hover:text-[#FEA81D] transition-colors">
-                  • Feeder & Sun Feeder Friction Wheels
-                </Link>
-              </li>
-              <li>
-                <Link href="/spare-parts" className="hover:text-[#FEA81D] transition-colors">
-                  • Polyurethane No-Crush Wheels
-                </Link>
-              </li>
-              <li>
-                <Link href="/spare-parts" className="hover:text-[#FEA81D] transition-colors">
-                  • Thin Blades & Slitting Knives
-                </Link>
-              </li>
-              <li>
-                <Link href="/spare-parts" className="hover:text-[#FEA81D] transition-colors">
-                  • 200°C High-Temp C&U Bearings
-                </Link>
-              </li>
-              <li>
-                <Link href="/spare-parts" className="hover:text-[#FEA81D] transition-colors">
-                  • Timing Belts & Conveyor Belts
-                </Link>
-              </li>
-              <li>
-                <Link href="/spare-parts" className="hover:text-[#FEA81D] transition-colors">
-                  • Electricals, Sensors & Solenoids
-                </Link>
-              </li>
-              <li className="pt-1">
+              {[
+                "MaxDura Knuckle-Joint Anvil Covers",
+                "Sun Feeder High-Friction Wheels",
+                "Polyurethane No-Crush Feed Rollers",
+                "Tungsten Carbide Thin Slitter Blades",
+                "200°C High-Temp C&U Sealed Bearings",
+                "DuPont Kevlar Corrugator Belts",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-1.5">
+                  <CheckCircle2 className="size-3 text-[#FEA81D] shrink-0" />
+                  <Link href="/spare-parts" className="hover:text-[#FEA81D] transition-colors truncate">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+              <li className="pt-2">
                 <Link
                   href="/spare-parts"
-                  className="text-xs text-[#FEA81D] hover:underline font-semibold flex items-center gap-1"
+                  className="text-xs text-[#FEA81D] hover:underline font-semibold flex items-center gap-1.5 group"
                 >
-                  <span>Explore Spare Parts Catalog (400+ SKUs)</span>
-                  <ArrowRight className="size-3" />
+                  <span>Search 400+ In-Stock SKUs</span>
+                  <ArrowRight className="size-3 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </li>
             </ul>
 
             {/* Direct Contacts Box */}
-            <div className="pt-3 border-t border-blue-900/80 space-y-2 text-xs">
-              <div className="bg-blue-950/60 p-3 rounded-md border border-blue-900/60 space-y-2">
+            <div className="pt-2">
+              <div className="bg-[#00173d] p-4 rounded-xl border border-white/10 space-y-2.5 text-xs shadow-inner">
                 <a
                   href={`tel:${COMPANY_CONTACT.phones.sales.tel}`}
-                  className="flex items-center gap-2 hover:text-[#FEA81D] transition-colors"
+                  className="flex items-center gap-2.5 text-slate-200 hover:text-[#FEA81D] transition-colors group"
                 >
-                  <Phone className="size-3.5 text-[#FEA81D] shrink-0" />
-                  <span>
-                    Sales: <strong>{COMPANY_CONTACT.phones.sales.display}</strong>
-                  </span>
+                  <div className="size-7 rounded-md bg-[#013074] flex items-center justify-center shrink-0 group-hover:bg-[#FEA81D] group-hover:text-[#0F172A] transition-colors">
+                    <Phone className="size-3.5 text-[#FEA81D] group-hover:text-[#0F172A] transition-colors" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-medium">Sales Hotline</span>
+                    <strong className="text-white text-xs">{COMPANY_CONTACT.phones.sales.display}</strong>
+                  </div>
                 </a>
 
                 <a
                   href={`tel:${COMPANY_CONTACT.phones.service.tel}`}
-                  className="flex items-center gap-2 hover:text-[#FEA81D] transition-colors"
+                  className="flex items-center gap-2.5 text-slate-200 hover:text-[#FEA81D] transition-colors group"
                 >
-                  <Wrench className="size-3.5 text-[#FEA81D] shrink-0" />
-                  <span>
-                    Service: <strong>{COMPANY_CONTACT.phones.service.display}</strong>
-                  </span>
+                  <div className="size-7 rounded-md bg-[#013074] flex items-center justify-center shrink-0 group-hover:bg-[#FEA81D] group-hover:text-[#0F172A] transition-colors">
+                    <Wrench className="size-3.5 text-[#FEA81D] group-hover:text-[#0F172A] transition-colors" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-medium">Spares & Support</span>
+                    <strong className="text-white text-xs">{COMPANY_CONTACT.phones.service.display}</strong>
+                  </div>
                 </a>
 
                 <a
                   href={`mailto:${COMPANY_CONTACT.email.sales}`}
-                  className="flex items-center gap-2 hover:text-[#FEA81D] transition-colors"
+                  className="flex items-center gap-2.5 text-slate-200 hover:text-[#FEA81D] transition-colors group pt-1 border-t border-white/5"
                 >
-                  <Mail className="size-3.5 text-[#FEA81D] shrink-0" />
-                  <span>{COMPANY_CONTACT.email.sales}</span>
+                  <div className="size-7 rounded-md bg-[#013074] flex items-center justify-center shrink-0 group-hover:bg-[#FEA81D] group-hover:text-[#0F172A] transition-colors">
+                    <Mail className="size-3.5 text-[#FEA81D] group-hover:text-[#0F172A] transition-colors" />
+                  </div>
+                  <span className="truncate text-slate-300 group-hover:text-[#FEA81D] transition-colors text-[11px]">{COMPANY_CONTACT.email.sales}</span>
                 </a>
               </div>
             </div>
@@ -305,31 +306,36 @@ export function Footer() {
         </div>
 
         {/* Industrial Trust Bar */}
-        <div className="mt-10 pt-6 border-t border-blue-900/60 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-300">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="size-4 text-[#FEA81D]" />
-            <span className="font-semibold text-white">
-              The Semi-Indian Machine Advantage:
-            </span>
-            <span>Heavy Cast-Iron Mechanicals Upgraded with Siemens / ABB / Crompton Electricals</span>
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-300">
+          <div className="flex items-center gap-2.5">
+            <ShieldCheck className="size-5 text-[#FEA81D] shrink-0" />
+            <div>
+              <span className="font-bold text-white">The Semi-Indian Advantage: </span>
+              <span className="text-slate-300">Heavy-gauge cast iron frameworks integrated with Siemens PLC, ABB inverters & Schneider electricals.</span>
+            </div>
           </div>
-          <div className="text-slate-400">
-            Over 240 Corrugators Installed Pan-India
+          <div className="flex items-center gap-3 text-[11px] text-slate-400">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">
+              <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              240+ Corrugators Running Pan-India
+            </span>
           </div>
         </div>
       </Container>
 
       {/* Bottom Copyright Strip */}
-      <div className="bg-[#001d47] text-slate-400 text-xs py-4 border-t border-blue-950">
+      <div className="bg-[#000a18] text-slate-400 text-xs py-5 border-t border-white/5">
         <Container size="default">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <div>
-              <p>
-                © 2026 {COMPANY_CONTACT.legalName}. All rights reserved. Brand: <strong>{COMPANY_CONTACT.brandName}</strong>.
+              <p className="text-[11px] text-slate-400">
+                © 2026 {COMPANY_CONTACT.legalName}. All rights reserved. Brand: <strong className="text-white">{COMPANY_CONTACT.brandName}</strong>.
               </p>
             </div>
-            <div className="text-[11px] text-slate-400">
-              <span>Engineered in Chennai, Tamil Nadu, India</span>
+            <div className="flex items-center gap-4 text-[11px] text-slate-400">
+              <span>Engineered in Chennai, Tamil Nadu, India 🇮🇳</span>
+              <span className="text-slate-600">•</span>
+              <span>ISO 9001:2015 Quality Standards</span>
             </div>
           </div>
         </Container>

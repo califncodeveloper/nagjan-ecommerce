@@ -1,200 +1,285 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, FileText, CheckCircle2 } from "lucide-react";
+import { ArrowRight, FileText, ChevronDown, Gauge, Ruler, Layers } from "lucide-react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { HERO_CONTENT } from "@/data/homepage";
+import { StaggerText } from "@/components/motion/StaggerText";
+import { EASE_PREMIUM } from "@/lib/motion";
 
 export function HeroSection() {
+  const containerRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.08,
-        delayChildren: shouldReduceMotion ? 0 : 0.1,
-      },
-    },
-  };
+  // Scroll parallax for background and floating elements
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.35, ease: "easeOut" as const },
-    },
-  };
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const cardY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
   return (
     <section
-      aria-label="Hero - Engineering Corrugated Packaging Machinery"
-      className="relative overflow-hidden bg-gradient-to-b from-[#01255e] via-[#013074] to-[#01255e] text-white pt-10 pb-16 lg:pt-16 lg:pb-24 border-b border-[#0f3b7d]"
+      ref={containerRef}
+      aria-label="Hero - NAGJAN Corrugated Packaging Machinery"
+      className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#011d47] text-white"
     >
-      {/* Background Engineering Grid Pattern */}
+      {/* Full-bleed background image with subtle parallax depth */}
+      <motion.div
+        style={{ y: shouldReduceMotion ? 0 : bgY }}
+        className="absolute inset-0 z-0 scale-105"
+        aria-hidden="true"
+      >
+        <Image
+          src={HERO_CONTENT.heroImage.src}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-30"
+        />
+        {/* Multi-layer gradient for depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#011d47] via-[#013074]/90 to-[#011d47]/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#011d47] via-transparent to-[#011d47]/40" />
+      </motion.div>
+
+      {/* Diagonal stripe texture overlay */}
       <div
-        className="absolute inset-0 opacity-[0.07] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]"
+        className="absolute inset-0 z-[1] texture-diagonal-stripes opacity-100 pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* Decorative Technical Accent glow */}
-      <div
-        className="absolute top-0 right-1/4 -mt-16 w-96 h-96 bg-[#FEA81D]/10 rounded-full blur-3xl pointer-events-none"
+      {/* Amber ambient glow with parallax */}
+      <motion.div
+        style={{ y: shouldReduceMotion ? 0 : glowY }}
+        className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#FEA81D]/12 rounded-full blur-[90px] pointer-events-none z-[1]"
         aria-hidden="true"
       />
 
-      <Container size="wide" className="relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Column: Headlines & Actions */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="lg:col-span-6 space-y-6 text-left"
-          >
-            {/* Origin & Experience Badge */}
-            <motion.div variants={itemVariants} className="inline-block">
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#FEA81D] bg-[#FEA81D]/15 border border-[#FEA81D]/30 rounded-md">
-                <span className="size-2 rounded-full bg-[#FEA81D] animate-ping" />
-                {HERO_CONTENT.badge}
-              </span>
-            </motion.div>
+      {/* Main hero content */}
+      <div className="relative z-10 flex-1 flex items-center">
+        <Container size="wide" className="py-16 lg:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
 
-            {/* Main H1 Headline */}
-            <motion.h1
-              variants={itemVariants}
-              className="font-heading text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.12]"
-            >
-              {HERO_CONTENT.headline}
-            </motion.h1>
-
-            {/* Supporting Copy */}
-            <motion.p
-              variants={itemVariants}
-              className="text-base sm:text-lg lg:text-xl text-slate-200 leading-relaxed max-w-xl font-normal"
-            >
-              {HERO_CONTENT.supportingCopy}
-            </motion.p>
-
-            {/* Technical Highlights Bar */}
+            {/* ── Left Column: Copy & CTAs ── */}
             <motion.div
-              variants={itemVariants}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 pb-2"
+              style={{ y: shouldReduceMotion ? 0 : textY }}
+              className="lg:col-span-7 space-y-7"
             >
-              {HERO_CONTENT.technicalBadges.map((badge, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white/5 border border-white/10 rounded-md p-2.5 backdrop-blur-xs"
-                >
-                  <p className="text-[11px] uppercase tracking-wider text-slate-300 font-medium">
-                    {badge.label}
-                  </p>
-                  <p className="text-sm sm:text-base font-bold font-mono text-[#FEA81D] mt-0.5">
-                    {badge.value}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 pt-2"
-            >
-              <Link
-                href={HERO_CONTENT.secondaryCta.href}
-                className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-md bg-[#FEA81D] text-[#0F172A] font-bold text-sm sm:text-base tracking-wide shadow-md hover:bg-[#e59516] hover:shadow-lg transition-all active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#013074]"
+              {/* Eyebrow badge with fade-in and subtle scale */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: EASE_PREMIUM }}
+                className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#FEA81D]/15 border border-[#FEA81D]/30"
               >
-                <span>{HERO_CONTENT.secondaryCta.label}</span>
-                <ArrowRight className="size-4" />
-              </Link>
+                <span className="size-2 rounded-full bg-[#FEA81D] animate-pulse" aria-hidden="true" />
+                <span className="eyebrow-label text-[#FEA81D]">
+                  Engineering Excellence Since 2010 · Chennai
+                </span>
+              </motion.div>
 
-              <Link
-                href={HERO_CONTENT.primaryCta.href}
-                className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-md bg-white/10 text-white border border-white/25 font-semibold text-sm sm:text-base hover:bg-white/20 hover:border-white/40 transition-all active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#013074]"
-              >
-                <FileText className="size-4 text-slate-300" />
-                <span>{HERO_CONTENT.primaryCta.label}</span>
-              </Link>
-            </motion.div>
-
-            {/* Quick Trust Checklist */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-wrap items-center gap-y-2 gap-x-5 text-xs text-slate-300 pt-2"
-            >
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="size-3.5 text-[#FEA81D]" />
-                <span>Heavy-Duty HT250 Cast Frames</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="size-3.5 text-[#FEA81D]" />
-                <span>Siemens / ABB Electricals</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="size-3.5 text-[#FEA81D]" />
-                <span>Madhavaram Spares Depot</span>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column: Authentic Flagship Machinery Photograph */}
-          <motion.div
-            initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-6 relative"
-          >
-            <div className="relative mx-auto rounded-lg overflow-hidden border border-white/20 shadow-2xl bg-slate-900 group">
-              {/* Product Showcase Aspect Container */}
-              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10]">
-                <Image
-                  src={HERO_CONTENT.heroImage.src}
-                  alt={HERO_CONTENT.heroImage.alt}
-                  fill
-                  priority
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 640px"
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              {/* Headline with staggered word reveal */}
+              <div className="space-y-1">
+                <StaggerText
+                  text="Engineering High-Speed Corrugated Packaging Machinery."
+                  as="h1"
+                  delay={0.1}
+                  stagger={0.05}
+                  className="heading-display text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12]"
                 />
-
-                {/* Gradient vignette for readability & framing */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
-
-                {/* Top overlay badge */}
-                <div className="absolute top-3 left-3 bg-[#013074]/90 backdrop-blur-md text-white text-[11px] font-mono uppercase px-2.5 py-1 rounded-sm border border-white/20">
-                  Model: WJ-100-1800 2PLY Line
-                </div>
-
-                {/* Bottom Overlay Label */}
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white bg-slate-950/85 backdrop-blur-md px-3.5 py-2.5 rounded border border-white/10">
-                  <div>
-                    <p className="font-semibold text-white">
-                      Complete Corrugation Production Line
-                    </p>
-                    <p className="text-[11px] text-slate-300">
-                      Mill Roll Stand • SF-10 • Bridge • NC Cutter • Stacker
-                    </p>
-                  </div>
-                  <div className="text-right font-mono text-[#FEA81D] font-bold shrink-0 pl-2">
-                    100 m/min
-                  </div>
-                </div>
               </div>
-            </div>
 
-            {/* Industrial Spec Tag underneath image */}
-            <div className="mt-3 flex items-center justify-between text-xs text-slate-300 px-1 font-mono">
-              <span>Authentic Factory Machinery Photograph</span>
-              <span className="text-[#FEA81D]">Effective Width: 1800 mm</span>
-            </div>
-          </motion.div>
-        </div>
-      </Container>
+              {/* Sub-headline with smooth slide-up */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4, ease: EASE_PREMIUM }}
+                className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-normal"
+              >
+                Heavy-duty corrugation production lines, precision single facers, and 400+ ready spare parts engineered for non-stop industrial productivity.
+              </motion.p>
+
+              {/* CTAs with magnetic micro-interactions */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.55, ease: EASE_PREMIUM }}
+                className="flex flex-wrap items-center gap-4 pt-1"
+              >
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                  <Link
+                    href={HERO_CONTENT.primaryCta.href}
+                    className="inline-flex items-center justify-center gap-2 h-13 px-8 rounded-lg bg-[#FEA81D] hover:bg-[#e59516] text-[#0F172A] font-bold text-sm sm:text-base tracking-wide shadow-lg hover:shadow-[0_0_24px_rgba(254,168,29,0.4)] transition-all duration-200 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FEA81D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#013074] group"
+                  >
+                    <span>Explore Machinery</span>
+                    <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                  </Link>
+                </motion.div>
+
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                  <Link
+                    href={HERO_CONTENT.secondaryCta.href}
+                    className="inline-flex items-center justify-center gap-2 h-13 px-7 rounded-lg glass-card text-white font-semibold text-sm sm:text-base hover:bg-white/15 transition-all duration-200 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#013074]"
+                  >
+                    <FileText className="size-4 text-slate-300" aria-hidden="true" />
+                    <span>Request a Quote</span>
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+
+            {/* ── Right Column: Spec Glass Card with 3D Float ── */}
+            <motion.div
+              style={{ y: shouldReduceMotion ? 0 : cardY }}
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.35, ease: EASE_PREMIUM }}
+              className="lg:col-span-5 flex justify-center lg:justify-end"
+            >
+              <motion.div
+                whileHover={{
+                  y: -5,
+                  boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.4), 0 0 30px rgba(254, 168, 29, 0.15)",
+                }}
+                transition={{ duration: 0.3 }}
+                className="glass-card rounded-2xl p-6 w-full max-w-sm relative overflow-hidden group border border-white/15 backdrop-blur-md bg-white/10"
+                role="complementary"
+                aria-label="Flagship machine specifications"
+              >
+                {/* Subtle sheen highlight line */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#FEA81D] to-transparent opacity-80" />
+
+                {/* Card header */}
+                <div className="flex items-center justify-between mb-5 pb-4 border-b border-white/10">
+                  <div className="flex items-center gap-2">
+                    <span className="size-2 rounded-full bg-[#FEA81D] animate-pulse" aria-hidden="true" />
+                    <span className="eyebrow-label text-slate-300 text-[10px] uppercase font-bold tracking-wider">
+                      WJ-100-1800 · Flagship Spec
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono text-[#FEA81D] bg-[#011d47]/80 px-2 py-0.5 rounded border border-[#FEA81D]/30">
+                    NAGJAN
+                  </span>
+                </div>
+
+                {/* Spec rows with staggered entry */}
+                <div className="space-y-4">
+                  {[
+                    {
+                      icon: Gauge,
+                      val: "100 m/min",
+                      lbl: "Design Speed",
+                      sub: "High output",
+                    },
+                    {
+                      icon: Ruler,
+                      val: "1800 mm",
+                      lbl: "Working Width",
+                      sub: "Heavy corrugator",
+                    },
+                    {
+                      icon: Layers,
+                      val: "HT250",
+                      lbl: "Cast Iron Frame",
+                      sub: "Vibration dampening",
+                    },
+                  ].map((row, idx) => {
+                    const Icon = row.icon;
+                    return (
+                      <motion.div
+                        key={row.lbl}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.5 + idx * 0.1, ease: EASE_PREMIUM }}
+                        className="flex items-center gap-4 group/row"
+                      >
+                        <div className="size-10 rounded-lg bg-[#FEA81D]/15 flex items-center justify-center shrink-0 border border-[#FEA81D]/20 group-hover/row:bg-[#FEA81D]/25 transition-colors">
+                          <Icon className="size-5 text-[#FEA81D]" aria-hidden="true" />
+                        </div>
+                        <div>
+                          <div className="text-2xl font-extrabold font-mono text-[#FEA81D] tabular-nums leading-none">
+                            {row.val}
+                          </div>
+                          <div className="text-[11px] text-slate-300 mt-0.5 uppercase tracking-wider">
+                            {row.lbl}
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* Provenance strip */}
+                <div className="mt-5 pt-4 border-t border-white/10">
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wider mb-2">Electrical Partners</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {["Siemens", "ABB", "Delta", "Schneider"].map((brand) => (
+                      <span
+                        key={brand}
+                        className="px-2 py-0.5 rounded text-[10px] font-semibold text-slate-200 bg-white/8 border border-white/10 hover:border-[#FEA81D]/40 transition-colors"
+                      >
+                        {brand}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </Container>
+      </div>
+
+      {/* ── Trust bar at bottom of hero with stagger ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.7, ease: EASE_PREMIUM }}
+        className="relative z-10 border-t border-white/10 bg-[#011d47]/80 backdrop-blur-sm"
+        aria-label="Key performance indicators"
+      >
+        <Container size="wide">
+          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/10">
+            {[
+              { value: "240+", label: "Corrugators Delivered" },
+              { value: "15+",  label: "Years in Industry" },
+              { value: "18+",  label: "Machinery Models" },
+              { value: "400+", label: "Spare Parts Stocked" },
+            ].map((item, idx) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.8 + idx * 0.08 }}
+                className="flex flex-col items-center justify-center py-5 px-4 text-center hover:bg-white/5 transition-colors"
+              >
+                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#FEA81D] tabular-nums leading-none">
+                  {item.value}
+                </span>
+                <span className="text-[11px] text-slate-300 mt-1 uppercase tracking-wide">
+                  {item.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </Container>
+      </motion.div>
+
+      {/* ── Scroll indicator ── */}
+      <div
+        className="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 opacity-50 pointer-events-none"
+        aria-hidden="true"
+      >
+        <span className="text-[9px] uppercase tracking-[0.2em] text-white/60">Scroll</span>
+        <ChevronDown className="size-4 text-white animate-bounce-scroll" />
+      </div>
     </section>
   );
 }

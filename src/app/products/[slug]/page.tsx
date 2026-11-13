@@ -98,26 +98,26 @@ export default async function ProductDetailPage({
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      {/* Section 1: Breadcrumb Navigation */}
+      {/* 1. Breadcrumb Navigation */}
       <MachineryBreadcrumb
         categoryTitle={machinery.category}
         categorySlug={machinery.categorySlug}
         model={machinery.model}
       />
 
-      <div className="py-8 sm:py-12 space-y-10 sm:space-y-12">
+      <div className="py-8 sm:py-12 space-y-8 lg:space-y-10">
+        {/* 2. Product Hero Dossier: Gallery + Key Info + Quotation Action */}
         <Container>
-          {/* Section 2: Product Hero (incorporates authentic image gallery, model info, technical parameters & quote action) */}
           <MachineryDetailHero machinery={machinery} />
         </Container>
 
+        {/* 3. Technical Highlights Strip */}
         <Container>
-          {/* Section 3: Technical Highlights (3-5 key parameters) */}
           <MachineryTechnicalHighlights specifications={machinery.technicalSpecifications} />
         </Container>
 
+        {/* 4. Machinery Function & Operating Characteristics */}
         <Container>
-          {/* Section 4: Product Overview (purpose, working principle, operating characteristics) */}
           <MachineryOverview
             model={machinery.model}
             name={machinery.name}
@@ -128,7 +128,7 @@ export default async function ProductDetailPage({
           />
         </Container>
 
-        {/* Modular Line Breakdown / Flute Sub-Assemblies (e.g. WJ-100-1800 6-module line) */}
+        {/* 5. Modular Sub-Assemblies (for complex lines e.g. WJ-100-1800) */}
         {machinery.configurationModules && machinery.configurationModules.length > 0 && (
           <Container>
             <MachineryConfiguration
@@ -138,31 +138,29 @@ export default async function ProductDetailPage({
           </Container>
         )}
 
+        {/* 6. Comprehensive Technical Specifications Table */}
         <Container>
-          {/* Section 5: Detailed Technical Specifications (structured engineering tables grouped by General, Mechanical, Drive & Motor, Electrical & Automation, Production, Dimensions & Utilities) */}
           <MachineryTechnicalSpecs
             model={machinery.model}
             specifications={machinery.technicalSpecifications}
           />
         </Container>
 
+        {/* 7. Key Features & Industrial Applications Grid */}
         <Container>
-          {/* Section 6: Key Engineering Features (verified features with headings, descriptions, and technical context) */}
-          <MachineryFeatures
-            features={machinery.keyFeatures}
-            engineeringFeatures={machinery.engineeringFeatures}
-          />
+          <div className="grid grid-cols-1 gap-8">
+            <MachineryFeatures
+              features={machinery.keyFeatures}
+              engineeringFeatures={machinery.engineeringFeatures}
+            />
+            <MachineryApplications
+              model={machinery.model}
+              applications={machinery.applications}
+            />
+          </div>
         </Container>
 
-        <Container>
-          {/* Section 7: Applications (documented manufacturing applications) */}
-          <MachineryApplications
-            model={machinery.model}
-            applications={machinery.applications}
-          />
-        </Container>
-
-        {/* Section 8: Components and Integration (provenance brands e.g. Siemens, ABB, Schneider, Delta, Inovance, AirTac, C&U) */}
+        {/* 8. Component Provenance (Siemens, ABB, Schneider, C&U) */}
         {machinery.componentBrands && machinery.componentBrands.length > 0 && (
           <Container>
             <MachineryComponents
@@ -173,8 +171,8 @@ export default async function ProductDetailPage({
           </Container>
         )}
 
+        {/* 9. Related Machinery Lines */}
         <Container>
-          {/* Section 10: Related Machinery (up to 3 relevant products, excluding current) */}
           <MachineryRelatedProducts
             currentSlug={machinery.slug}
             categorySlug={machinery.categorySlug}
@@ -182,8 +180,8 @@ export default async function ProductDetailPage({
           />
         </Container>
 
+        {/* 10. Direct Quote Callout */}
         <Container>
-          {/* Section 11: Request a Quote (prominent industrial CTA) */}
           <MachineryQuoteCTA
             model={machinery.model}
             slug={machinery.slug}

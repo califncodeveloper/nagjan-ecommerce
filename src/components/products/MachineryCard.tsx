@@ -3,20 +3,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FileText,
-  ArrowRight,
-  Gauge,
-  Sliders,
-  CheckCircle2,
-  Scale,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, Scale, FileText } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { MachineryItem } from "@/types/machinery";
 
 export interface MachineryCardProps {
   machinery: MachineryItem;
-  onViewDetails: (item: MachineryItem) => void;
+  onViewDetails?: (item: MachineryItem) => void;
   isCompared?: boolean;
   onToggleCompare?: (item: MachineryItem) => void;
 }
@@ -36,37 +29,48 @@ export function MachineryCard({
       ? keySpecs
       : machinery.technicalSpecifications.slice(0, 3);
 
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <article className="group bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md hover:border-[#013074]/40 transition-all flex flex-col h-full">
-      {/* Machinery Image Header */}
-      <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
-        <Image
-          src={machinery.primaryImage}
-          alt={machinery.imageAlt || `${machinery.name} - ${machinery.model}`}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-300 opacity-95 group-hover:opacity-100"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+    <motion.article
+      whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="group relative bg-white rounded-xl border border-slate-200 overflow-hidden transition-all duration-300 hover:border-[#013074]/30 hover:shadow-xl flex flex-col h-full"
+    >
+      {/* Amber left-border glow on hover */}
+      <div
+        className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#FEA81D] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 rounded-l-xl"
+        aria-hidden="true"
+      />
 
-        {/* Top Badges */}
-        <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
-          {machinery.badge ? (
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#013074]/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider border border-white/20">
-              <Sparkles className="size-3 text-[#FEA81D]" />
-              <span>{machinery.badge}</span>
-            </span>
-          ) : (
-            <span className="inline-flex items-center px-2 py-0.5 rounded bg-slate-900/80 backdrop-blur-sm text-slate-200 text-[10px] font-semibold tracking-wider uppercase border border-white/10">
-              {machinery.machineType}
-            </span>
-          )}
+      {/* Machinery Image — taller aspect ratio */}
+      <div className="relative aspect-[16/11] w-full bg-slate-900 overflow-hidden flex-shrink-0">
+        <Link href={`/products/${machinery.slug}`} className="block w-full h-full relative" tabIndex={-1}>
+          <Image
+            src={machinery.primaryImage}
+            alt={machinery.imageAlt || `${machinery.name} - ${machinery.model}`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-106 transition-transform duration-600 opacity-90 group-hover:opacity-100"
+          />
+          {/* Strong gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent pointer-events-none" />
+        </Link>
 
-          {/* Compare Checkbox / Button */}
+        {/* Top: Badge (top-left) + Compare button (top-right) */}
+        <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
+          {/* Navy pill badge */}
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-[#013074] text-white text-[10px] font-bold uppercase tracking-wider shadow-sm">
+            {machinery.badge ?? machinery.machineType}
+          </span>
+
+          {/* Compare Button */}
           {onToggleCompare && (
-            <button
+            <motion.button
+              whileTap={{ scale: 0.92 }}
               type="button"
               onClick={(e) => {
+                e.preventDefault();
                 e.stopPropagation();
                 onToggleCompare(machinery);
               }}
@@ -75,107 +79,91 @@ export function MachineryCard({
                   ? `Remove ${machinery.model} from comparison`
                   : `Add ${machinery.model} to comparison`
               }
-              className={`pointer-events-auto inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-semibold transition-colors border shadow-sm ${
+              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all shadow-sm border ${
                 isCompared
                   ? "bg-[#FEA81D] text-slate-950 border-[#FEA81D]"
                   : "bg-white/90 backdrop-blur-sm text-slate-800 border-white/30 hover:bg-white"
               }`}
             >
               <Scale className="size-3" />
-              <span>{isCompared ? "Compared" : "Compare"}</span>
-            </button>
+              <span>{isCompared ? "Added" : "Compare"}</span>
+            </motion.button>
           )}
         </div>
 
-        {/* Bottom Model & Availability Overlay */}
-        <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between pointer-events-none">
-          <span className="font-mono text-xs font-bold text-white tracking-wide bg-black/60 px-2 py-0.5 rounded border border-white/10 backdrop-blur-sm">
+        {/* Bottom of image: Model chip (amber monospace on dark glass) */}
+        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
+          <span className="font-mono text-xs font-bold text-[#FEA81D] bg-slate-950/75 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10">
             {machinery.model}
           </span>
-          <span className="text-[10px] font-medium text-slate-300">
+          <span className="text-[10px] font-semibold text-slate-300 bg-slate-950/50 backdrop-blur-sm px-2 py-0.5 rounded">
             {machinery.category}
           </span>
         </div>
       </div>
 
-      {/* Machinery Content */}
-      <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+      {/* Card Body */}
+      <div className="p-5 flex-1 flex flex-col justify-between gap-4">
         <div className="space-y-3">
-          {/* Title & Short Description */}
+          {/* Machine name + 1-line description */}
           <div>
-            <h3 className="text-base font-bold font-heading text-slate-900 group-hover:text-[#013074] transition-colors line-clamp-1">
-              {machinery.name}
-            </h3>
-            <p className="mt-1 text-xs text-slate-600 line-clamp-2 leading-relaxed">
+            <Link href={`/products/${machinery.slug}`} className="block" onClick={() => onViewDetails?.(machinery)}>
+              <h3 className="font-heading font-bold text-lg text-slate-900 group-hover:text-[#013074] transition-colors line-clamp-1 leading-tight">
+                {machinery.name}
+              </h3>
+            </Link>
+            <p className="mt-1 text-xs text-slate-500 line-clamp-1 leading-relaxed">
               {machinery.shortDescription}
             </p>
           </div>
 
-          {/* Key 3 Technical Specifications Grid */}
-          <div className="bg-slate-50 rounded-lg p-2.5 border border-slate-200 space-y-1.5">
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
-              <Gauge className="size-3 text-[#FEA81D]" />
-              <span>Key Technical Parameters:</span>
-            </div>
-            <div className="grid grid-cols-1 gap-1 text-xs">
-              {displaySpecs.map((spec) => (
+          {/* Specs: 3 key specs in horizontal row with amber dot separators */}
+          {displaySpecs.length > 0 && (
+            <div className="flex items-stretch divide-x divide-slate-100 bg-slate-50 rounded-lg border border-slate-100 overflow-hidden">
+              {displaySpecs.map((spec, i) => (
                 <div
                   key={spec.label}
-                  className="flex items-center justify-between text-slate-700 py-0.5 border-b border-slate-100 last:border-b-0"
+                  className="flex-1 flex flex-col items-center justify-center px-2 py-2.5 min-w-0"
                 >
-                  <span className="text-[11px] text-slate-500 font-medium">
-                    {spec.label}:
-                  </span>
-                  <span className="text-[11px] font-mono font-semibold text-slate-900 text-right">
+                  <span className="font-mono font-bold text-[#013074] text-xs leading-tight text-center truncate w-full text-center">
                     {spec.value}
                   </span>
+                  <span className="text-[10px] text-slate-400 font-medium mt-0.5 text-center truncate w-full leading-tight">
+                    {spec.label}
+                  </span>
+                  {i < displaySpecs.length - 1 && (
+                    <span className="sr-only">·</span>
+                  )}
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Provenance Components Badges */}
-          {machinery.componentBrands && machinery.componentBrands.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {machinery.componentBrands.slice(0, 3).map((brand) => (
-                <span
-                  key={brand}
-                  className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-blue-50 text-[#013074] border border-blue-100 flex items-center gap-1"
-                >
-                  <CheckCircle2 className="size-2.5 text-[#FEA81D]" />
-                  <span>{brand}</span>
-                </span>
-              ))}
-              {machinery.componentBrands.length > 3 && (
-                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-slate-100 text-slate-600">
-                  +{machinery.componentBrands.length - 3} more
-                </span>
-              )}
             </div>
           )}
         </div>
 
-        {/* Dual Actions: View Details (Technical Highlights) + Request a Quote */}
-        <div className="pt-3 border-t border-slate-100 flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => onViewDetails(machinery)}
-            className="flex-1 py-2 px-3 rounded-lg border border-slate-300 bg-white text-slate-800 text-xs font-semibold hover:border-[#013074] hover:text-[#013074] hover:bg-slate-50 transition-colors text-center inline-flex items-center justify-center gap-1.5"
-          >
-            <FileText className="size-3.5 text-slate-500" />
-            <span>View Details</span>
-          </button>
+        {/* Action buttons with micro-interactions */}
+        <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
+            <Link
+              href={`/products/${machinery.slug}`}
+              onClick={() => onViewDetails?.(machinery)}
+              className="w-full py-2 px-3 rounded-lg border border-[#013074] text-[#013074] bg-white text-xs font-bold hover:bg-[#013074] hover:text-white transition-all text-center inline-flex items-center justify-center gap-1.5"
+            >
+              <span>View Details</span>
+              <ArrowRight className="size-3" />
+            </Link>
+          </motion.div>
 
-          <Link
-            href={`/request-quote?product=${machinery.slug}`}
-            className="flex-1 py-2 px-3 rounded-lg bg-[#FEA81D] hover:bg-[#e59617] text-slate-950 text-xs font-bold transition-all text-center inline-flex items-center justify-center gap-1.5 shadow-sm"
-          >
-            <span>Request Quote</span>
-            <ArrowRight className="size-3.5" />
-          </Link>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
+            <Link
+              href={`/request-quote?product=${machinery.slug}`}
+              className="w-full py-2 px-3 rounded-lg bg-[#FEA81D] hover:bg-[#e59617] text-slate-950 text-xs font-bold transition-all text-center inline-flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <FileText className="size-3" />
+              <span>Get Quote</span>
+            </Link>
+          </motion.div>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
-

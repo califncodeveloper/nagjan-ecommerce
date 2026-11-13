@@ -5,6 +5,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { PageTransition } from "@/components/motion/PageTransition";
+import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nagjan.com"),
@@ -29,12 +31,16 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         <CartProvider>
-          <Header />
-          <main className="flex-1 flex flex-col">{children}</main>
-          <Footer />
-          <Suspense fallback={null}>
-            <CartDrawer />
-          </Suspense>
+          <SmoothScrollProvider>
+            <Header />
+            <main className="flex-1 flex flex-col">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
+            <Suspense fallback={null}>
+              <CartDrawer />
+            </Suspense>
+          </SmoothScrollProvider>
         </CartProvider>
       </body>
     </html>

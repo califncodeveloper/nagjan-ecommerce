@@ -12,6 +12,9 @@ import {
   Navigation as NavIcon,
   ShieldCheck,
   ExternalLink,
+  Sparkles,
+  CheckCircle2,
+  Package,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { COMPANY_CONTACT } from "@/data/navigation";
@@ -20,7 +23,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 export const metadata: Metadata = {
   title: "Contact Us | NAGJAN - Mount Kailash Printpack Machines",
   description:
-    "Contact Mount Kailash Printpack Machines in Chennai. Registered office in Perungudi, assembly godown & spares depot in Madhavaram. Direct sales & service hotlines.",
+    "Connect with Mount Kailash Printpack Machines in Chennai. Registered office in Perungudi, assembly godown & 400+ spares depot in Madhavaram. Direct sales & engineering hotlines.",
   keywords: [
     "Contact NAGJAN",
     "Mount Kailash Printpack Machines contact",
@@ -95,7 +98,7 @@ export default function ContactPage() {
       />
 
       {/* 1. Breadcrumbs */}
-      <div className="bg-white border-b border-slate-200 py-3">
+      <div className="bg-white border-b border-slate-200 py-3.5">
         <Container>
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-xs text-slate-500 font-medium">
@@ -107,8 +110,8 @@ export default function ContactPage() {
               <li>
                 <ChevronRight className="size-3.5 text-slate-400" />
               </li>
-              <li className="text-slate-900 font-semibold" aria-current="page">
-                Contact Us
+              <li className="text-[#013074] font-semibold" aria-current="page">
+                Contact & Facilities
               </li>
             </ol>
           </nav>
@@ -116,31 +119,36 @@ export default function ContactPage() {
       </div>
 
       {/* 2. Hero Section */}
-      <header className="relative bg-gradient-to-b from-[#013074] via-[#02285e] to-[#01214e] text-white py-14 sm:py-20 overflow-hidden">
+      <header className="relative bg-gradient-to-b from-[#011744] via-[#01255e] to-[#010f29] text-white py-16 sm:py-24 overflow-hidden">
+        {/* Glow & Texture */}
         <div
-          className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
+          className="absolute inset-0 opacity-15 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute top-0 right-1/4 w-[600px] h-[300px] bg-[#FEA81D]/10 blur-[100px] rounded-full pointer-events-none"
           aria-hidden="true"
         />
 
         <Container>
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-xs font-semibold text-slate-200">
+          <div className="max-w-3xl space-y-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-slate-200 shadow-xs">
               <span className="size-2 rounded-full bg-[#FEA81D] animate-pulse" />
-              <span>Direct Commercial & Technical Desks</span>
+              <span className="tracking-wide">Direct Sales & Engineering Desks</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight text-white leading-tight">
-              Contact Mount Kailash Printpack Machines
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight text-white leading-[1.15]">
+              Contact Mount Kailash <span className="text-[#FEA81D]">Printpack Machines</span>
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-2xl">
-              Connect with our corporate office in Perungudi or our assembly and spare-parts godown in Madhavaram, Chennai. We are ready to assist with machinery quotations, technical layout drawings, and express spare parts dispatch.
+            <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-2xl font-sans">
+              Connect with our corporate office in Perungudi or our assembly and spares depot in Madhavaram, Chennai. We provide rapid technical consulting, plant layout planning, and express spare parts dispatch.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-3 flex flex-wrap items-center gap-3.5">
               <a
                 href={`tel:${COMPANY_CONTACT.phones.sales.tel}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FEA81D] hover:bg-[#e59617] text-slate-950 font-bold text-xs sm:text-sm transition-all shadow-md"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#FEA81D] hover:bg-[#e59617] text-[#0F172A] font-extrabold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
               >
                 <Phone className="size-4" />
                 <span>Sales: {COMPANY_CONTACT.phones.sales.display}</span>
@@ -148,94 +156,98 @@ export default function ContactPage() {
 
               <a
                 href={`tel:${COMPANY_CONTACT.phones.service.tel}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm transition-all border border-white/20"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm transition-all border border-white/20 backdrop-blur-sm hover:-translate-y-0.5"
               >
                 <Wrench className="size-4 text-[#FEA81D]" />
-                <span>Spares Hotline: {COMPANY_CONTACT.phones.service.display}</span>
+                <span>Spares Depot: {COMPANY_CONTACT.phones.service.display}</span>
               </a>
             </div>
           </div>
         </Container>
       </header>
 
-      {/* 3. Central Contact Directory (Cards) */}
-      <section className="py-10 bg-white border-b border-slate-200" aria-label="Direct Communication Channels">
+      {/* 3. Direct Contact Directory (Cards) */}
+      <section className="py-12 bg-white border-b border-slate-200 shadow-xs" aria-label="Direct Communication Channels">
         <Container>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Sales Channel */}
-            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
-              <div className="size-9 rounded-lg bg-blue-100/70 text-[#013074] flex items-center justify-center">
-                <Phone className="size-4 text-[#013074]" />
+            <div className="relative bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-[#013074] transition-all shadow-xs hover:shadow-md group">
+              <div className="absolute top-0 left-6 right-6 h-1 bg-[#013074] rounded-t-sm" />
+              <div className="size-10 rounded-xl bg-blue-50 text-[#013074] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                <Phone className="size-5 text-[#013074]" />
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
                 Machinery Sales Desk
               </span>
               <a
                 href={`tel:${COMPANY_CONTACT.phones.sales.tel}`}
-                className="text-base font-bold text-[#013074] hover:underline block"
+                className="text-base font-extrabold text-[#013074] hover:text-[#FEA81D] hover:underline block mb-1 font-heading"
               >
                 {COMPANY_CONTACT.phones.sales.display}
               </a>
-              <p className="text-[11px] text-slate-500">
-                New production lines & machine quotations
+              <p className="text-xs text-slate-500 leading-normal">
+                New corrugated lines, fingerless facers & RFQs
               </p>
             </div>
 
             {/* Service & Spares Channel */}
-            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
-              <div className="size-9 rounded-lg bg-amber-100/70 text-amber-900 flex items-center justify-center">
-                <Wrench className="size-4 text-amber-700" />
+            <div className="relative bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-[#FEA81D] transition-all shadow-xs hover:shadow-md group">
+              <div className="absolute top-0 left-6 right-6 h-1 bg-[#FEA81D] rounded-t-sm" />
+              <div className="size-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                <Wrench className="size-5 text-amber-600" />
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
                 Service & Spares Hotline
               </span>
               <a
                 href={`tel:${COMPANY_CONTACT.phones.service.tel}`}
-                className="text-base font-bold text-slate-900 hover:text-[#013074] hover:underline block"
+                className="text-base font-extrabold text-slate-900 hover:text-[#FEA81D] hover:underline block mb-1 font-heading"
               >
                 {COMPANY_CONTACT.phones.service.display}
               </a>
-              <p className="text-[11px] text-slate-500">
-                400+ SKUs & technical troubleshooting
+              <p className="text-xs text-slate-500 leading-normal">
+                400+ SKUs, emergency field repairs & dispatch
               </p>
             </div>
 
             {/* Corporate Landline */}
-            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
-              <div className="size-9 rounded-lg bg-blue-100/70 text-[#013074] flex items-center justify-center">
-                <Building2 className="size-4 text-[#013074]" />
+            <div className="relative bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-[#013074] transition-all shadow-xs hover:shadow-md group">
+              <div className="absolute top-0 left-6 right-6 h-1 bg-[#013074] rounded-t-sm" />
+              <div className="size-10 rounded-xl bg-blue-50 text-[#013074] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                <Building2 className="size-5 text-[#013074]" />
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
-                Office Landline
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
+                Corporate Landline
               </span>
               <a
                 href={`tel:${COMPANY_CONTACT.phones.landline.tel}`}
-                className="text-base font-bold text-slate-900 hover:text-[#013074] hover:underline block"
+                className="text-base font-extrabold text-slate-900 hover:text-[#013074] hover:underline block mb-1 font-heading"
               >
                 {COMPANY_CONTACT.phones.landline.display}
               </a>
-              <p className="text-[11px] text-slate-500">
-                Corporate administrative inquiries
+              <p className="text-xs text-slate-500 leading-normal">
+                Headquarters administrative & commercial desk
               </p>
             </div>
 
             {/* Email Desk */}
-            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
-              <div className="size-9 rounded-lg bg-blue-100/70 text-[#013074] flex items-center justify-center">
-                <Mail className="size-4 text-[#013074]" />
+            <div className="relative bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-[#013074] transition-all shadow-xs hover:shadow-md group">
+              <div className="absolute top-0 left-6 right-6 h-1 bg-[#013074] rounded-t-sm" />
+              <div className="size-10 rounded-xl bg-blue-50 text-[#013074] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                <Mail className="size-5 text-[#013074]" />
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
                 Official Email Desk
               </span>
               <a
                 href={`mailto:${COMPANY_CONTACT.email.sales}`}
-                className="text-base font-bold text-[#013074] hover:underline block truncate"
+                className="text-base font-extrabold text-[#013074] hover:text-[#FEA81D] hover:underline block truncate mb-1 font-heading"
                 title={COMPANY_CONTACT.email.sales}
               >
                 {COMPANY_CONTACT.email.sales}
               </a>
-              <p className="text-[11px] text-slate-500">
-                Quotations, RFQs & tender documentation
+              <p className="text-xs text-slate-500 leading-normal">
+                Tender documentation, formal quotes & POs
               </p>
             </div>
           </div>
@@ -243,73 +255,91 @@ export default function ContactPage() {
       </section>
 
       {/* 4. Contact Form & Operational Guidelines Section */}
-      <section className="py-12 sm:py-16">
+      <section className="py-14 sm:py-20">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             {/* Left Column (7 cols): Functional Contact Form */}
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-7 bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
+              <div className="mb-6 space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#013074] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
+                  Fast Direct Inquiry
+                </span>
+                <h2 className="text-2xl font-extrabold font-heading text-slate-900 tracking-tight pt-2">
+                  Send Commercial or Technical Inquiry
+                </h2>
+                <p className="text-xs text-slate-500">
+                  Receive engineering response with layout guidelines and pricing within 4 business hours.
+                </p>
+              </div>
               <ContactForm />
             </div>
 
             {/* Right Column (5 cols): Office Hours & Instructions */}
             <div className="lg:col-span-5 space-y-6">
-              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-blue-50 text-[#013074] text-xs font-bold border border-blue-200">
+              <div className="bg-white p-7 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#013074] text-xs font-bold border border-blue-200">
                   <Clock className="size-3.5 text-[#FEA81D]" />
                   <span>Business Operations</span>
                 </div>
 
                 <h3 className="text-lg font-bold font-heading text-slate-900">
-                  Commercial & Dispatch Timings
+                  Operating & Dispatch Timings
                 </h3>
 
-                <div className="space-y-2 text-xs text-slate-600 border-b border-slate-100 pb-4">
-                  <div className="flex justify-between">
-                    <span className="font-semibold text-slate-700">Monday – Saturday:</span>
-                    <span>09:30 AM – 06:30 PM IST</span>
+                <div className="space-y-3 text-xs text-slate-600 border-b border-slate-100 pb-5">
+                  <div className="flex justify-between items-center py-1">
+                    <span className="font-semibold text-slate-800">Monday – Saturday:</span>
+                    <span className="font-mono text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded">09:30 AM – 06:30 PM IST</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="font-semibold text-slate-700">Sunday:</span>
-                    <span className="text-amber-800 font-medium">Closed (Emergency Hotline Active)</span>
+                  <div className="flex justify-between items-center py-1">
+                    <span className="font-semibold text-slate-800">Sunday:</span>
+                    <span className="text-amber-800 font-semibold bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">Emergency Spares Dispatch Active</span>
                   </div>
                 </div>
 
-                <div className="space-y-2 text-xs text-slate-600">
-                  <span className="font-bold text-slate-800 block">
-                    Important Guidance for Packaging Plants:
+                <div className="space-y-3 text-xs text-slate-600">
+                  <span className="font-bold text-slate-900 text-sm block">
+                    Important Guidance for Fast Quotes:
                   </span>
-                  <ul className="space-y-2 list-disc list-inside">
-                    <li>
-                      <strong>Machinery Quotations:</strong> Please specify required fluting width (1400/1600/1800mm), design speed, and whether live steam is already piped.
+                  <ul className="space-y-2.5">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="size-4 text-[#013074] shrink-0 mt-0.5" />
+                      <span><strong>Machinery Lines:</strong> Specify paper width (1400/1600/1800mm), design speed (m/min), and steam boiler status.</span>
                     </li>
-                    <li>
-                      <strong>Consumable Spare Parts:</strong> For thin slitter blades or anvil covers, kindly mention the outer diameter (OD), inner bore (ID), and machine brand.
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="size-4 text-[#013074] shrink-0 mt-0.5" />
+                      <span><strong>Consumable Spares:</strong> Provide outer/inner diameter and machine make for anvil covers, slitting knives or friction wheels.</span>
                     </li>
-                    <li>
-                      <strong>Civil Foundation Layouts:</strong> Provided free of charge with all confirmed machinery purchase orders.
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="size-4 text-[#013074] shrink-0 mt-0.5" />
+                      <span><strong>Free Layout Plans:</strong> Complete foundation civil blueprint supplied with every plant purchase order.</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="pt-2 border-t border-slate-100">
+                <div className="pt-3 border-t border-slate-100">
                   <div className="flex items-center gap-2 text-xs text-slate-500">
                     <ShieldCheck className="size-4 text-[#013074] shrink-0" />
-                    <span>Proprietorship: Mount Kailash Printpack Machines</span>
+                    <span>Proprietorship: <strong>{COMPANY_CONTACT.legalName}</strong></span>
                   </div>
                 </div>
               </div>
 
               {/* Quick Communication Office Card */}
-              <div className="bg-blue-50/60 p-6 rounded-2xl border border-blue-200 space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#013074]">
-                  Madhavaram Communication Office
-                </h4>
-                <p className="text-xs text-slate-700 leading-relaxed">
+              <div className="bg-gradient-to-br from-blue-50 to-slate-100 p-6 rounded-3xl border border-blue-200 space-y-3">
+                <div className="flex items-center gap-2">
+                  <Building2 className="size-4 text-[#013074]" />
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#013074]">
+                    Madhavaram Communication Office
+                  </h4>
+                </div>
+                <p className="text-xs text-slate-700 leading-relaxed font-sans">
                   {COMPANY_CONTACT.addresses.communicationOffice.address}
                 </p>
-                <p className="text-xs text-slate-600">
-                  <strong>Phone:</strong> {COMPANY_CONTACT.phones.service.display}
-                </p>
+                <div className="pt-1 flex items-center gap-2 text-xs text-slate-700">
+                  <Phone className="size-3.5 text-[#013074]" />
+                  <span><strong>Support Line:</strong> {COMPANY_CONTACT.phones.service.display}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -317,39 +347,44 @@ export default function ContactPage() {
       </section>
 
       {/* 5. Verified Facilities & Maps Section */}
-      <section className="py-12 sm:py-16 bg-white border-t border-slate-200">
+      <section className="py-14 sm:py-20 bg-white border-t border-slate-200">
         <Container>
           <div className="max-w-3xl mx-auto text-center space-y-3 mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#013074] bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-              Chennai Facilities & Locations
+            <span className="text-xs font-bold uppercase tracking-wider text-[#013074] bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
+              Chennai Facilities & Godowns
             </span>
 
-            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 tracking-tight">
-              Our Chennai Offices & Spares Depot
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 tracking-tight">
+              Visit Our Chennai Corporate Office & Spares Depot
             </h2>
 
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Visiting our facilities? Click the direct directions links below to navigate with Google Maps.
+              Visiting in person? Use the verified Google Maps direct links below for turn-by-turn navigation.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Facility 1: Perungudi Corporate Office */}
-            <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 sm:p-7 flex flex-col justify-between space-y-5">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-                  <div className="flex items-center gap-2">
-                    <Building2 className="size-5 text-[#013074]" />
-                    <h3 className="text-base font-bold font-heading text-slate-900">
-                      Registered Corporate Office
-                    </h3>
+            <div className="bg-slate-50 rounded-3xl border border-slate-200 p-7 sm:p-8 flex flex-col justify-between space-y-6 hover:shadow-md transition-shadow">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="size-8 rounded-lg bg-[#013074] text-white flex items-center justify-center">
+                      <Building2 className="size-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold font-heading text-slate-900">
+                        Registered Corporate Office
+                      </h3>
+                      <span className="text-[11px] text-slate-500">Commercial & Executive HQ</span>
+                    </div>
                   </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-[#013074] uppercase">
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-100 text-[#013074] uppercase tracking-wider">
                     Perungudi
                   </span>
                 </div>
 
-                <div className="flex items-start gap-2 text-xs text-slate-600">
+                <div className="flex items-start gap-2.5 text-xs text-slate-700">
                   <MapPin className="size-4 text-[#FEA81D] shrink-0 mt-0.5" />
                   <p className="leading-relaxed">
                     {COMPANY_CONTACT.addresses.registeredOffice.address}
@@ -357,14 +392,16 @@ export default function ContactPage() {
                 </div>
 
                 <p className="text-[11px] text-slate-500 italic">
-                  * Primary venue for formal contract signing, commercial negotiations, and corporate administration.
+                  * Primary venue for contract signing, machinery technical layout reviews, and commercial negotiations.
                 </p>
 
                 {/* Map Representation Container */}
-                <div className="rounded-xl overflow-hidden border border-slate-200 bg-white h-48 relative flex items-center justify-center text-center p-4">
+                <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white h-48 relative flex items-center justify-center text-center p-6 shadow-inner">
                   <div className="space-y-2 max-w-xs">
-                    <MapPin className="size-8 text-[#013074] mx-auto animate-bounce" />
-                    <p className="text-xs font-semibold text-slate-800">
+                    <div className="size-12 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center mx-auto text-[#013074]">
+                      <MapPin className="size-6 text-[#013074]" />
+                    </div>
+                    <p className="text-xs font-bold text-slate-900 font-heading">
                       Perungudi Corporate Office, Chennai
                     </p>
                     <p className="text-[11px] text-slate-500">
@@ -379,31 +416,36 @@ export default function ContactPage() {
                   href={perungudiMapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-[#013074] text-white text-xs font-bold hover:bg-[#022557] transition-colors"
+                  className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-[#013074] text-white text-xs font-bold hover:bg-[#022557] transition-all shadow-sm hover:shadow"
                 >
                   <NavIcon className="size-3.5 text-[#FEA81D]" />
-                  <span>Get Directions on Google Maps</span>
+                  <span>Navigate with Google Maps</span>
                   <ExternalLink className="size-3 opacity-70" />
                 </a>
               </div>
             </div>
 
             {/* Facility 2: Madhavaram Assembly Godown & Spares Depot */}
-            <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 sm:p-7 flex flex-col justify-between space-y-5">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-                  <div className="flex items-center gap-2">
-                    <Wrench className="size-5 text-[#013074]" />
-                    <h3 className="text-base font-bold font-heading text-slate-900">
-                      Assembly Godown & Spares Depot
-                    </h3>
+            <div className="bg-slate-50 rounded-3xl border border-slate-200 p-7 sm:p-8 flex flex-col justify-between space-y-6 hover:shadow-md transition-shadow">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="size-8 rounded-lg bg-[#FEA81D] text-[#0F172A] flex items-center justify-center">
+                      <Wrench className="size-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold font-heading text-slate-900">
+                        Assembly Godown & Spares Depot
+                      </h3>
+                      <span className="text-[11px] text-slate-500">Logistics & Testing Workshop</span>
+                    </div>
                   </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900 uppercase">
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 uppercase tracking-wider">
                     Madhavaram
                   </span>
                 </div>
 
-                <div className="flex items-start gap-2 text-xs text-slate-600">
+                <div className="flex items-start gap-2.5 text-xs text-slate-700">
                   <MapPin className="size-4 text-[#FEA81D] shrink-0 mt-0.5" />
                   <p className="leading-relaxed">
                     {COMPANY_CONTACT.addresses.godownDepot.address}
@@ -411,14 +453,16 @@ export default function ContactPage() {
                 </div>
 
                 <p className="text-[11px] text-slate-500 italic">
-                  * 400+ spare parts ready stock warehouse, machinery testing bay, and electrical retrofitting workshop.
+                  * 400+ spare parts ready warehouse, machine testing bay, electrical retrofitting & live inspections.
                 </p>
 
                 {/* Map Representation Container */}
-                <div className="rounded-xl overflow-hidden border border-slate-200 bg-white h-48 relative flex items-center justify-center text-center p-4">
+                <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white h-48 relative flex items-center justify-center text-center p-6 shadow-inner">
                   <div className="space-y-2 max-w-xs">
-                    <MapPin className="size-8 text-[#FEA81D] mx-auto animate-bounce" />
-                    <p className="text-xs font-semibold text-slate-800">
+                    <div className="size-12 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center mx-auto text-[#FEA81D]">
+                      <Package className="size-6 text-amber-600" />
+                    </div>
+                    <p className="text-xs font-bold text-slate-900 font-heading">
                       Madhavaram Assembly Godown & Depot
                     </p>
                     <p className="text-[11px] text-slate-500">
@@ -433,19 +477,19 @@ export default function ContactPage() {
                   href={madhavaramMapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-[#013074] text-white text-xs font-bold hover:bg-[#022557] transition-colors"
+                  className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-[#013074] text-white text-xs font-bold hover:bg-[#022557] transition-all shadow-sm hover:shadow"
                 >
                   <NavIcon className="size-3.5 text-[#FEA81D]" />
-                  <span>Get Directions on Google Maps</span>
+                  <span>Navigate with Google Maps</span>
                   <ExternalLink className="size-3 opacity-70" />
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 text-center">
+          <div className="mt-10 text-center">
             <p className="text-xs text-slate-500">
-              * Exact doorstep GPS pinpoint coordinates pending on-site verification beacon; verified locality links provided.
+              * In-person inspections of machinery and spare parts warehouse available Monday through Saturday.
             </p>
           </div>
         </Container>
