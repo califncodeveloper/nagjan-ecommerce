@@ -105,14 +105,16 @@ Feel free to ask questions about machine models like the **WJ-100-1800 2PLY Plan
     }
 
     // List of candidate models to try with automatic fallback
-    const preferredModel = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
+    const preferredModel = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
     const fallbackModels = [
       preferredModel,
+      "openai/gpt-oss-20b",
+      "qwen/qwen3.8-27b",
+      "openai/gpt-oss-120b",
+      "allam-2-7b",
+      "llama-3.3-70b-versatile",
       "llama-3.1-8b-instant",
-      "llama-3.1-70b-versatile",
-      "llama3-8b-8192",
-      "mixtral-8x7b-32768",
-    ].filter((m, idx, arr) => arr.indexOf(m) === idx);
+    ].filter((m, idx, arr) => Boolean(m) && arr.indexOf(m) === idx);
 
     let data: any = null;
     let lastErrorText = "";
@@ -146,13 +148,69 @@ Feel free to ask questions about machine models like the **WJ-100-1800 2PLY Plan
 
         lastErrorText = await groqResponse.text();
         console.warn(`[Groq Model Attempt ${modelToTry}]:`, groqResponse.status, lastErrorText);
-
-        // If it's not a model not found / 404, or if we exhausted list, break
-        if (groqResponse.status !== 404 && !lastErrorText.includes("model_not_found")) {
-          break;
-        }
       } catch (fetchErr) {
         console.error(`[Groq Fetch Error with ${modelToTry}]:`, fetchErr);
+      }
+    }
+
+    // Dynamic recovery: If all candidate models failed, dynamically fetch active models from Groq
+    if (!data) {
+      try {
+        console.log("[Groq Fallback] Attempting dynamic model discovery...");
+        const listRes = await fetch("https://api.groq.com/openai/v1/models", {
+          headers: {
+            Authorization: `Bearer ${apiKey.trim()}`,
+          },
+        });
+
+        if (listRes.ok) {
+          const listJson = await listRes.json();
+          const dynamicModels: string[] = (listJson?.data || [])
+            .map((item: any) => item.id as string)
+            .filter((id: string) => {
+              if (!id) return false;
+              const lower = id.toLowerCase();
+              return (
+                !lower.includes("whisper") &&
+                !lower.includes("guard") &&
+                !lower.includes("safeguard") &&
+                !lower.includes("orpheus") &&
+                !fallbackModels.includes(id)
+              );
+            });
+
+          for (const dynModel of dynamicModels) {
+            try {
+              const dynRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${apiKey.trim()}`,
+                },
+                body: JSON.stringify({
+                  model: dynModel,
+                  messages: [
+                    { role: "system", content: NAGJAN_SYSTEM_PROMPT },
+                    ...recentMessages,
+                  ],
+                  temperature: 0.4,
+                  max_tokens: 1024,
+                  top_p: 0.9,
+                }),
+              });
+
+              if (dynRes.ok) {
+                data = await dynRes.json();
+                console.log(`[Groq Dynamic Fallback Success]: used ${dynModel}`);
+                break;
+              }
+            } catch {
+              // continue to next model
+            }
+          }
+        }
+      } catch (dynamicErr) {
+        console.error("[Groq Dynamic Models Fetch Error]:", dynamicErr);
       }
     }
 
