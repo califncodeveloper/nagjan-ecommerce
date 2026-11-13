@@ -157,7 +157,7 @@ export function MachineryTechnicalSpecs({
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs sm:text-sm border-collapse">
+              <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[360px]">
                 <tbody>
                   {specs.map((spec, idx) => (
                     <tr
@@ -168,17 +168,19 @@ export function MachineryTechnicalSpecs({
                     >
                       <th
                         scope="row"
-                        className="py-3.5 px-5 sm:px-6 font-semibold text-slate-700 w-1/2 border-b border-slate-100 flex items-center gap-2"
+                        className="py-2.5 sm:py-3.5 px-3.5 sm:px-6 font-semibold text-slate-700 w-1/2 border-b border-slate-100"
                       >
-                        {spec.highlight && (
-                          <span
-                            title="Key Design Parameter"
-                            className="size-1.5 rounded-full bg-[#FEA81D] shrink-0"
-                          />
-                        )}
-                        <span>{spec.label}</span>
+                        <div className="flex items-center gap-2">
+                          {spec.highlight && (
+                            <span
+                              title="Key Design Parameter"
+                              className="size-1.5 rounded-full bg-[#FEA81D] shrink-0"
+                            />
+                          )}
+                          <span>{spec.label}</span>
+                        </div>
                       </th>
-                      <td className="py-3.5 px-5 sm:px-6 font-mono font-medium text-slate-900 w-1/2 border-b border-slate-100">
+                      <td className="py-2.5 sm:py-3.5 px-3.5 sm:px-6 font-mono font-medium text-slate-900 w-1/2 border-b border-slate-100">
                         {spec.value || (
                           <span className="text-slate-400 italic font-sans text-xs">
                             To be confirmed

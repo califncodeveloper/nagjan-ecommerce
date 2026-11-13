@@ -123,7 +123,7 @@ export function MachineryImageGallery({
               type="button"
               onClick={handlePrev}
               aria-label="Previous machine photograph"
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 size-9 rounded-full bg-slate-900/75 hover:bg-[#013074] text-white flex items-center justify-center border border-white/20 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 shadow-lg"
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 size-9 rounded-full bg-slate-900/75 hover:bg-[#013074] text-white flex items-center justify-center border border-white/20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 shadow-lg"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -131,7 +131,7 @@ export function MachineryImageGallery({
               type="button"
               onClick={handleNext}
               aria-label="Next machine photograph"
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 size-9 rounded-full bg-slate-900/75 hover:bg-[#013074] text-white flex items-center justify-center border border-white/20 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 shadow-lg"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 size-9 rounded-full bg-slate-900/75 hover:bg-[#013074] text-white flex items-center justify-center border border-white/20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 shadow-lg"
             >
               <ChevronRight className="size-5" />
             </button>

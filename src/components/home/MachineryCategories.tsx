@@ -107,8 +107,11 @@ export function MachineryCategories() {
               >
                 <Link
                   href={cat.href}
-                  className="group relative block overflow-hidden rounded-2xl bg-slate-900 shadow-lg hover:shadow-2xl transition-all duration-300 w-full h-full border border-white/5 hover:border-[#FEA81D]/30"
-                  style={{ aspectRatio: idx === 0 ? "21/9" : "16/10" }}
+                  className={`group relative block overflow-hidden rounded-2xl bg-slate-900 shadow-lg hover:shadow-2xl transition-all duration-300 w-full h-full border border-white/5 hover:border-[#FEA81D]/30 ${
+                    idx === 0
+                      ? "aspect-[16/10] sm:aspect-[21/9] min-h-[200px]"
+                      : "aspect-[16/10] min-h-[180px]"
+                  }`}
                 >
                   {/* Background Image with smooth zoom */}
                   <Image

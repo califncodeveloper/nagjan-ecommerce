@@ -49,6 +49,16 @@ export function InfrastructureSection() {
               {/* Amber accent top line */}
               <div className="h-[3px] w-full bg-[#FEA81D] shrink-0" />
 
+              {/* Mobile-Only Header: Title above image */}
+              <div className="block sm:hidden p-5 pb-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#FEA81D] bg-[#FEA81D]/15 px-2.5 py-1 rounded border border-[#FEA81D]/30 inline-block mb-1.5">
+                  Customization Godown &amp; Spares Depot
+                </span>
+                <h3 className="text-base font-bold font-heading text-white">
+                  Madhavaram Assembly &amp; Spares Hub
+                </h3>
+              </div>
+
               {/* Image with Image Reveal & Clipping */}
               <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
                 <ImageReveal direction="left-to-right" hoverZoom className="w-full h-full">
@@ -63,8 +73,8 @@ export function InfrastructureSection() {
 
                 {/* Strong gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#010f29] via-[#010f29]/40 to-transparent pointer-events-none" />
-                {/* Badge */}
-                <div className="absolute top-4 left-4 bg-[#013074]/90 text-white text-[11px] font-bold uppercase px-3 py-1 rounded backdrop-blur-sm border border-white/20 z-10 shadow-sm">
+                {/* Badge (Desktop) */}
+                <div className="hidden sm:block absolute top-4 left-4 bg-[#013074]/90 text-white text-[11px] font-bold uppercase px-3 py-1 rounded backdrop-blur-sm border border-white/20 z-10 shadow-sm">
                   Customization Godown &amp; Spares Depot
                 </div>
               </div>
@@ -126,6 +136,16 @@ export function InfrastructureSection() {
               {/* Amber accent top line */}
               <div className="h-[3px] w-full bg-[#FEA81D] shrink-0" />
 
+              {/* Mobile-Only Header: Title above image */}
+              <div className="block sm:hidden p-5 pb-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#FEA81D] bg-[#FEA81D]/15 px-2.5 py-1 rounded border border-[#FEA81D]/30 inline-block mb-1.5">
+                  Corporate &amp; Technical Consultation
+                </span>
+                <h3 className="text-base font-bold font-heading text-white">
+                  Perungudi Engineering Headquarters
+                </h3>
+              </div>
+
               {/* Image with Image Reveal & Clipping */}
               <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
                 <ImageReveal direction="bottom-to-top" hoverZoom className="w-full h-full">
@@ -140,8 +160,8 @@ export function InfrastructureSection() {
 
                 {/* Strong gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#010f29] via-[#010f29]/40 to-transparent pointer-events-none" />
-                {/* Badge */}
-                <div className="absolute top-4 left-4 bg-[#013074]/90 text-white text-[11px] font-bold uppercase px-3 py-1 rounded backdrop-blur-sm border border-white/20 z-10 shadow-sm">
+                {/* Badge (Desktop) */}
+                <div className="hidden sm:block absolute top-4 left-4 bg-[#013074]/90 text-white text-[11px] font-bold uppercase px-3 py-1 rounded backdrop-blur-sm border border-white/20 z-10 shadow-sm">
                   Corporate &amp; Technical Consultation
                 </div>
               </div>

@@ -98,6 +98,7 @@ export function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
                 width={120}
                 height={40}
                 className="w-auto h-9 object-contain"
+                style={{ width: "auto" }}
               />
             </div>
           </Link>
@@ -176,32 +177,20 @@ export function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
               </button>
 
               {machineryOpen && (
-                <div className="p-3 bg-white space-y-4 border-t border-slate-200 animate-in fade-in duration-200">
-                  {MACHINERY_NAV_DATA.map((cat) => (
-                    <div key={cat.id} className="space-y-1.5">
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-[#013074]">
-                        {cat.name}
-                      </p>
-                      <ul className="space-y-1">
-                        {cat.models.map((model) => (
-                          <li key={model.model}>
-                            <Link
-                              href={model.href}
-                              onClick={onClose}
-                              className="block p-2 rounded text-xs text-slate-700 hover:text-[#013074] hover:bg-slate-50"
-                            >
-                              <div className="font-semibold text-slate-900">
-                                {model.name}
-                              </div>
-                              <div className="text-[10px] text-slate-500 font-mono mt-0.5">
-                                {model.specs}
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                <div className="p-3 bg-white space-y-2 border-t border-slate-200 animate-in fade-in duration-200">
+                  <ul className="grid grid-cols-1 gap-1">
+                    {MACHINERY_NAV_DATA.map((cat) => (
+                      <li key={cat.id}>
+                        <Link
+                          href={`/products?category=${cat.id}`}
+                          onClick={onClose}
+                          className="flex items-center justify-between p-2 rounded text-xs font-medium text-slate-800 hover:bg-slate-50 hover:text-[#013074]"
+                        >
+                          <span>{cat.name}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
 
                   <div className="pt-2 border-t border-slate-100">
                     <Link
@@ -244,14 +233,9 @@ export function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
                         <Link
                           href={part.href}
                           onClick={onClose}
-                          className="flex items-center justify-between p-2 rounded text-xs text-slate-800 hover:bg-slate-50 hover:text-[#013074]"
+                          className="flex items-center justify-between p-2 rounded text-xs font-medium text-slate-800 hover:bg-slate-50 hover:text-[#013074]"
                         >
-                          <span className="font-medium">{part.name}</span>
-                          {part.itemCountNote && (
-                            <span className="text-[10px] text-slate-400">
-                              {part.itemCountNote}
-                            </span>
-                          )}
+                          <span>{part.name}</span>
                         </Link>
                       </li>
                     ))}

@@ -127,15 +127,69 @@ export default async function SparePartDetailPage({
           </Link>
         </div>
 
+        {/* Mobile-Only Header: Title, SKU & Category rendered at top before gallery on smaller screens */}
+        <div className="block lg:hidden space-y-2.5 mb-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-mono text-xs font-bold text-[#013074] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
+              SKU: {part.sku}
+            </span>
+
+            <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded">
+              {part.categoryName}
+            </span>
+
+            {part.brand && (
+              <span className="text-xs font-bold text-slate-900 bg-[#FEA81D] px-2 py-0.5 rounded font-mono shadow-2xs">
+                {part.brand}
+              </span>
+            )}
+          </div>
+
+          <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 leading-tight">
+            {part.name}
+          </h1>
+        </div>
+
         {/* Two-Column Product Detail Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
-          {/* Left Column: Gallery & Specifications (7 cols) */}
+          {/* Left Column: Gallery, followed on mobile by Description & Action, and Specifications/Compatibility */}
           <div className="lg:col-span-7 space-y-6">
+            {/* Gallery Image: Positioned between title and description on mobile */}
             <SparePartsGallery
               images={part.images}
               name={part.name}
               sku={part.sku}
             />
+
+            {/* Mobile-Only: Description & Purchase Action placed right after image */}
+            <div className="block lg:hidden space-y-6">
+              <p className="text-sm text-slate-600 leading-relaxed">
+                {part.description}
+              </p>
+
+              {/* Purchase Action Box (Price, Quantity, Add to Cart / Inquiry) */}
+              <SparePartsDetailAction part={part} />
+
+              {/* Product Tags (Mobile) */}
+              {part.tags && part.tags.length > 0 && (
+                <div className="pt-2">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-2">
+                    <Tag className="size-3.5" />
+                    <span>Product Keywords:</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {part.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[11px] font-medium text-slate-600 bg-white border border-slate-200 px-2 py-0.5 rounded"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <SparePartsSpecifications
               specifications={part.specifications}
@@ -147,8 +201,8 @@ export default async function SparePartDetailPage({
             />
           </div>
 
-          {/* Right Column: Title, SKU, Description, Pricing & Add to Cart (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
+          {/* Right Column (Desktop Only): Original Title, SKU, Description, Pricing & Add to Cart */}
+          <div className="hidden lg:block lg:col-span-5 space-y-6">
             {/* Title & Header */}
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2">

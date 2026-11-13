@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ChevronRight, Phone } from "lucide-react";
 import { Container } from "@/components/layout/Container";
-import { SparePartsHero } from "@/components/spare-parts/SparePartsHero";
 import { SparePartsFilters } from "@/components/spare-parts/SparePartsFilters";
 import { SparePartsGrid } from "@/components/spare-parts/SparePartsGrid";
 import { SparePartsEnquiryCTA } from "@/components/spare-parts/SparePartsEnquiryCTA";
@@ -82,8 +83,52 @@ export function SparePartsClientView() {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      {/* Hero Banner */}
-      <SparePartsHero />
+      {/* 1. Breadcrumbs Bar */}
+      <div className="bg-white border-b border-slate-200 py-3">
+        <Container size="default">
+          <nav aria-label="Breadcrumb">
+            <ol className="flex items-center gap-2 text-xs text-slate-500 font-medium">
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-[#013074] transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <ChevronRight className="size-3.5 text-slate-400" />
+              </li>
+              <li className="text-slate-900 font-semibold" aria-current="page">
+                Spare Parts
+              </li>
+            </ol>
+          </nav>
+        </Container>
+      </div>
+
+      {/* 2. Page Title Header */}
+      <div className="bg-white border-b border-slate-200 py-6 sm:py-8">
+        <Container size="default">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 tracking-tight">
+                Industrial Spare Parts &amp; Consumables
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
+                Authentic replacement components, wear parts, and electrical consumables with ready stock dispatch from Chennai depot.
+              </p>
+            </div>
+            <a
+              href="tel:+917299207800"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FEA81D] hover:bg-[#e59617] text-slate-950 font-bold text-xs transition-all shadow-xs self-start sm:self-auto"
+            >
+              <Phone className="size-3.5" />
+              <span>Spares Hotline: +91-7299 20 7800</span>
+            </a>
+          </div>
+        </Container>
+      </div>
 
       {/* Main Content Area */}
       <div className="py-8 sm:py-12">

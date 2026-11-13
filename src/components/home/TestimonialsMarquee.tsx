@@ -162,7 +162,7 @@ export function TestimonialsMarquee() {
           {marqueeItems.map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className="w-[360px] sm:w-[420px] bg-slate-800/80 backdrop-blur-md rounded-2xl p-6 border border-slate-700/60 shadow-xl flex flex-col justify-between shrink-0 hover:border-[#FEA81D]/50 hover:bg-slate-800 transition-all duration-300 group"
+              className="w-[290px] sm:w-[380px] md:w-[420px] bg-slate-800/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-700/60 shadow-xl flex flex-col justify-between shrink-0 hover:border-[#FEA81D]/50 hover:bg-slate-800 transition-all duration-300 group"
             >
               <div>
                 {/* Header: Rating & Year */}

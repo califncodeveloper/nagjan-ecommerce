@@ -68,7 +68,7 @@ export function ImageReveal({
         transition={{
           scale: { duration: 0.8, ease: EASE_OUT_EXPO },
         }}
-        className="w-full h-full"
+        className="relative w-full h-full"
       >
         {children}
       </motion.div>

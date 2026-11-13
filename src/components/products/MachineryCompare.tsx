@@ -26,7 +26,7 @@ export function MachineryCompare({
       {/* Floating Bottom Comparison Dock */}
       <aside
         aria-label="Machinery Comparison Bar"
-        className="fixed bottom-4 left-4 right-4 max-w-4xl mx-auto bg-slate-900/95 backdrop-blur-md text-white rounded-2xl shadow-2xl border border-slate-700/80 p-3 sm:p-4 z-40 animate-in slide-in-from-bottom-4 duration-300"
+        className="fixed bottom-20 sm:bottom-4 left-3 right-3 sm:left-4 sm:right-4 max-w-4xl sm:mx-auto bg-slate-900/95 backdrop-blur-md text-white rounded-2xl shadow-2xl border border-slate-700/80 p-3 sm:p-4 z-40 animate-in slide-in-from-bottom-4 duration-300"
       >
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           {/* Left: Summary & Selected Items */}
@@ -140,8 +140,8 @@ export function MachineryCompare({
             </div>
 
             {/* Comparison Matrix Table */}
-            <div className="p-6 overflow-x-auto">
-              <table className="w-full border-collapse text-xs">
+            <div className="p-4 sm:p-6 overflow-x-auto">
+              <table className="w-full border-collapse text-xs min-w-[560px]">
                 <thead>
                   <tr>
                     <th className="p-3 bg-slate-100/70 text-slate-500 font-bold uppercase tracking-wider text-left border border-slate-200 w-1/4">

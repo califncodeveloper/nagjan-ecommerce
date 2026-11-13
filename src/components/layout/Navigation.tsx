@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, ShoppingCart, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Container } from "./Container";
 import { MachineryMegaMenu } from "./MachineryMegaMenu";
 import { SparePartsMegaMenu } from "./SparePartsMegaMenu";
@@ -21,6 +21,7 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
   const [activeMenu, setActiveMenu] = useState<"machinery" | "spare-parts" | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const navContainerRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { itemCount, toggleCart } = useCart();
 
   // Scroll detection for sticky enhancement
@@ -71,7 +72,37 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
     setActiveMenu(null);
   }, [pathname]);
 
+  // Clean up any pending timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleMouseEnter = (menu: "machinery" | "spare-parts") => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setActiveMenu(menu);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      setActiveMenu(null);
+    }, 150);
+  };
+
   const handleMenuToggle = (menu: "machinery" | "spare-parts") => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
     setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
@@ -119,6 +150,7 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
                   height={56}
                   priority
                   className="w-auto h-12 sm:h-14 object-contain transition-transform group-hover:scale-102"
+                  style={{ width: "auto" }}
                 />
               </motion.div>
             </Link>
@@ -141,7 +173,13 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
                   <div
                     key={link.label}
                     className="relative"
-                    onMouseEnter={() => setActiveMenu("machinery")}
+                    onMouseEnter={() => handleMouseEnter("machinery")}
+                    onMouseLeave={handleMouseLeave}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                        setActiveMenu(null);
+                      }
+                    }}
                   >
                     <button
                       type="button"
@@ -150,6 +188,9 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           handleMenuToggle("machinery");
+                        } else if (e.key === "ArrowDown" && !isMenuOpen) {
+                          e.preventDefault();
+                          handleMouseEnter("machinery");
                         }
                       }}
                       aria-expanded={isMenuOpen}
@@ -171,6 +212,10 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
                         <span className="absolute bottom-[-16px] left-3.5 right-3.5 h-[3px] bg-[#FEA81D] rounded-t-sm" />
                       )}
                     </button>
+                    <MachineryMegaMenu
+                      isOpen={isMenuOpen}
+                      onClose={() => setActiveMenu(null)}
+                    />
                   </div>
                 );
               }
@@ -181,7 +226,13 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
                   <div
                     key={link.label}
                     className="relative"
-                    onMouseEnter={() => setActiveMenu("spare-parts")}
+                    onMouseEnter={() => handleMouseEnter("spare-parts")}
+                    onMouseLeave={handleMouseLeave}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                        setActiveMenu(null);
+                      }
+                    }}
                   >
                     <button
                       type="button"
@@ -190,6 +241,9 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           handleMenuToggle("spare-parts");
+                        } else if (e.key === "ArrowDown" && !isMenuOpen) {
+                          e.preventDefault();
+                          handleMouseEnter("spare-parts");
                         }
                       }}
                       aria-expanded={isMenuOpen}
@@ -211,6 +265,10 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
                         <span className="absolute bottom-[-16px] left-3.5 right-3.5 h-[3px] bg-[#FEA81D] rounded-t-sm" />
                       )}
                     </button>
+                    <SparePartsMegaMenu
+                      isOpen={isMenuOpen}
+                      onClose={() => setActiveMenu(null)}
+                    />
                   </div>
                 );
               }
@@ -219,7 +277,10 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
                 <Link
                   key={link.label}
                   href={link.href}
-                  onMouseEnter={() => setActiveMenu(null)}
+                  onMouseEnter={() => {
+                    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                    setActiveMenu(null);
+                  }}
                   className={`relative inline-flex items-center px-3.5 py-2 text-sm font-semibold rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#013074] ${
                     isActive
                       ? "text-[#013074] bg-slate-50"
@@ -287,16 +348,6 @@ export function Navigation({ onOpenMobileNav }: NavigationProps) {
           </div>
         </motion.div>
       </Container>
-
-      {/* Mega Menus rendered as dropdown beneath the navigation container */}
-      <MachineryMegaMenu
-        isOpen={activeMenu === "machinery"}
-        onClose={() => setActiveMenu(null)}
-      />
-      <SparePartsMegaMenu
-        isOpen={activeMenu === "spare-parts"}
-        onClose={() => setActiveMenu(null)}
-      />
     </motion.div>
   );
 }

@@ -107,12 +107,12 @@ export function MachineryFilters({
           </div>
 
           {/* Right Utilities: Mobile Toggle, Clear Filters */}
-          <div className="flex items-center justify-between w-full lg:w-auto gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+          <div className="flex items-center justify-between w-full md:w-auto gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100">
             {/* Mobile Filter Toggle */}
             <button
               type="button"
               onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-              className="lg:hidden inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-800 text-xs font-semibold"
+              className="md:hidden inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-800 text-xs font-semibold"
             >
               <SlidersHorizontal className="size-3.5 text-[#FEA81D]" />
               <span>Filters & Sorting</span>
@@ -128,7 +128,7 @@ export function MachineryFilters({
               <button
                 type="button"
                 onClick={onClearFilters}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 hover:text-rose-800 transition-colors ml-auto lg:ml-0"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 hover:text-rose-800 transition-colors ml-auto md:ml-0"
               >
                 <RotateCcw className="size-3" />
                 <span>Reset Filters</span>
@@ -140,7 +140,7 @@ export function MachineryFilters({
         {/* Secondary Filter Row: Machine Type & Sort by Dropdown */}
         <div
           className={`pt-3 border-t border-slate-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 ${
-            isMobileFiltersOpen ? "block" : "hidden lg:flex"
+            isMobileFiltersOpen ? "flex" : "hidden md:flex"
           }`}
         >
           {/* Machine Type Filter */}

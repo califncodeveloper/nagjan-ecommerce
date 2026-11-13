@@ -198,69 +198,57 @@ export default async function CategoryDetailPage({ params }: CategoryDetailPageP
         </Container>
       </div>
 
-      {/* 2. Category Detail Hero */}
-      <header className="relative bg-gradient-to-b from-[#013074] via-[#02285e] to-[#01214e] text-white py-12 sm:py-16 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
-          aria-hidden="true"
-        />
-
+      {/* 2. Category Title Header */}
+      <div className="bg-white border-b border-slate-200 py-6 sm:py-8">
         <Container>
-          <div className="max-w-3xl space-y-4 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-xs font-semibold text-slate-200">
-              {isMachinery ? (
-                <>
-                  <Layers className="size-3.5 text-[#FEA81D]" />
-                  <span>Industrial Machinery Classification</span>
-                </>
-              ) : (
-                <>
-                  <Boxes className="size-3.5 text-[#FEA81D]" />
-                  <span>Consumable Spare Parts Classification</span>
-                </>
-              )}
-              <span>•</span>
-              <span>{resolved.count} {resolved.count === 1 ? "Item" : "Items"} Listed</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#013074] mb-1">
+                {isMachinery ? (
+                  <span className="inline-flex items-center gap-1">
+                    <Layers className="size-3.5 text-[#FEA81D]" />
+                    Industrial Machinery
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1">
+                    <Boxes className="size-3.5 text-[#FEA81D]" />
+                    Spare Parts &amp; Consumables
+                  </span>
+                )}
+                <span>•</span>
+                <span className="text-slate-500 font-normal">
+                  {resolved.count} {resolved.count === 1 ? "Item" : "Items"} Listed
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 tracking-tight">
+                {title}
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
+                {description}
+              </p>
             </div>
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight text-white leading-tight">
-              {title}
-            </h1>
-
-            <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-2xl">
-              {description}
-            </p>
-
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2 self-start sm:self-auto">
               {isMachinery ? (
                 <Link
                   href={`/products?category=${slug}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FEA81D] hover:bg-[#e59617] text-slate-950 font-bold text-xs sm:text-sm transition-all shadow-md"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#FEA81D] hover:bg-[#e59617] text-slate-950 font-bold text-xs transition-all shadow-xs"
                 >
                   <span>Filter in Machinery Catalogue</span>
-                  <ArrowRight className="size-4" />
+                  <ArrowRight className="size-3.5" />
                 </Link>
               ) : (
                 <Link
                   href={`/spare-parts?category=${slug}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FEA81D] hover:bg-[#e59617] text-slate-950 font-bold text-xs sm:text-sm transition-all shadow-md"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#FEA81D] hover:bg-[#e59617] text-slate-950 font-bold text-xs transition-all shadow-xs"
                 >
                   <span>Filter in Spare Parts Store</span>
-                  <ArrowRight className="size-4" />
+                  <ArrowRight className="size-3.5" />
                 </Link>
               )}
-
-              <Link
-                href="/categories"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm transition-all border border-white/20"
-              >
-                <ArrowLeft className="size-4" />
-                <span>All Categories</span>
-              </Link>
             </div>
           </div>
         </Container>
-      </header>
+      </div>
 
       {/* 3. Product Listings Section */}
       <main className="py-12 sm:py-16">

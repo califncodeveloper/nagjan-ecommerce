@@ -152,14 +152,33 @@
 }
 
 @layer base {
-  * {
+  *, ::before, ::after {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+  html {
+    overflow-x: clip;
+    max-width: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: clip;
+    max-width: 100%;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight text-foreground font-bold;
+    overflow-wrap: break-word;
+  }
+  p, span, li, a {
+    overflow-wrap: break-word;
+  }
+  img, svg, video {
+    max-width: 100%;
+    height: auto;
   }
 }
 
